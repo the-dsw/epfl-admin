@@ -1,0 +1,69 @@
+
+<template name="layout">
+    <div class="container">
+        {{> atForm}}
+    </div>
+        {{#if isLoggedIn}}
+            {{> nav}}
+            {{> main}}
+        {{/if}}
+
+    <div class="main">
+        {{> yield}}
+    </div>
+</template>
+
+<template name="main">
+    <div class="card-panel">
+        {{#if pageIs "HOME"}}
+            {{> home}}
+        {{/if}}
+        {{#if pageIs "LIST"}}
+            {{> list}}
+        {{/if}}
+        {{#if pageIs "ABOUT"}}
+            {{> about}}
+        {{/if}}
+        {{#if pageIs "CONTACT"}}
+            {{> contact}}
+        {{/if}}
+        {{#if pageIs "SETTINGS_PROFILE"}}
+            {{> profile}}
+        {{/if}}
+        {{#if pageIs "SETTINGS_LANG"}}
+
+        {{/if}}
+    </div>
+</template>
+
+<template name="nav">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">CMI - {{currentPage}}</a>
+            <a href="#" data-activates="mobile-menu" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+            <ul id="mobile-menu" class="side-nav">
+                {{> navContent}}
+            </ul>
+        </div>
+    </nav>
+</template>
+
+<template name="navContent">
+    <li class="{{#if pageIs 'LIST'}}active{{/if}}"><a class="list" href="{{pathFor 'list'}}"><i class="material-icons left">supervisor_account</i>Users</a></li>
+    <li class="{{#if pageIs 'ABOUT'}}active{{/if}}"><a class="about" href="{{pathFor 'about'}}"><i class="material-icons left">message</i>About</a></li>
+    <li class="{{#if pageIs 'CONTACT'}}active{{/if}}"><a class="contact" href="{{pathFor 'contact'}}"><i class="material-icons left">email</i>ContactUs</a></li>
+    <li class="no-padding">
+        <ul class="collapsible">
+            <li>
+                <a class="settings collapsible-header {{#if pageIs 'SETTINGS'}}active{{/if}}" href="#"><i class="material-icons left">settings</i>Settings</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li class="{{#if pageIs 'SETTINGS_PROFILE'}}active{{/if}}"><a href="{{pathFor 'profile'}}" name="settings-profile"><i class="material-icons left">edit</i>Profile</a></li>
+                        <li class="{{#if pageIs 'SETTINGS_LANG'}}active{{/if}}"><a href="#!" name="settings-lang"><i class="material-icons left">language</i>Language</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li>{{> atNavButton }}</li>
+</template>
