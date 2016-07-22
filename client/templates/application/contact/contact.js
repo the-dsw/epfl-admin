@@ -13,7 +13,7 @@ Template.contact.events({
         const email = target.email.value;
         const message = target.message.value;
         const subject = 'Hello from Meteor!';
-        const to = 'fmod31@gmail.com';
+        const to = ''; // your email
         const text = "name: " + account + "\n email: " + email + "\n message: " + message;
 
         // Message successfully

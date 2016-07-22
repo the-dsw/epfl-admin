@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
   // code to run on server at startup
-    process.env.MAIL_URL = "smtp://fmod31@gmail.com:phsncdrichnqiopg@smtp.gmail.com:587";
+    process.env.MAIL_URL = "smtp://<your-email>:<your-password>@smtp.gmail.com:587";
 
 });
 
