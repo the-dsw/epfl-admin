@@ -1,3 +1,29 @@
 <template name="contact">
     <h1 class="center">Contact Us</h1>
+    <div class="row">
+        <form class="col s6 offset-s3">
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="account" name="account" type="text" class="validate">
+                    <label for="account">Full Name</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" name="email" type="email" class="validate">
+                    <label for="email" data-error="Please enter a valid email address." data-success="valid email">Email</label>
+                </div><br>
+                <div class="input-field">
+                    <i class="material-icons prefix">question_answer</i>
+                    <textarea id="message" name="message" class="materialize-textarea"></textarea>
+                    <label for="message">Your Message</label>
+                </div>
+                <div class="center">
+                    <button class="btn waves-effect waves-light" onclick="toast()" type="submit">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </template>
