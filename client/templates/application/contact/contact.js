@@ -3,7 +3,7 @@
  */
 
 Template.contact.events({
-    'submit form': function(e){
+    'submit .contact': function(e){
         // Prevent default browser form submit
         e.preventDefault();
 
@@ -39,6 +39,8 @@ Template.contact.events({
             target.account.value = '';
             target.email.value = '';
             target.message.value = '';
+
+            return false;
         }
 
 
