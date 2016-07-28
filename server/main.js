@@ -1,4 +1,9 @@
 import { Meteor } from 'meteor/meteor';
+Lists = new Meteor.Collection('lists');
+
+Meteor.publish('Lists', function(){
+    return Lists.find({}, { sort: {lastNameUser: 1} });
+});
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -20,5 +25,11 @@ Meteor.methods({
             subject: subject,
             text: text
         });
+    }
+});
+
+Lists.allow({
+    insert: function () {
+        return true;
     }
 });
