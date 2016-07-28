@@ -50,11 +50,18 @@
             {{#each list}}
                 <form class="col s12">
                     <div class="row">
-                        {{ firstNameUser }}
-                        {{ lastNameUser }}
-                        {{ passwordUser }}
-                        {{ emailUser }}
-                        {{createdAt}}
+                        <div class="input-field col s2">
+                            <input type="text" value="{{ firstNameUser }}">
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="text" value="{{ lastNameUser }}">
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="text" value="{{ passwordUser }}">
+                        </div>
+                        <div class="input-field col s2">
+                            <input type="text" value="{{ emailUser }}">
+                        </div>
                     </div>
                 </form>
             {{/each}}
