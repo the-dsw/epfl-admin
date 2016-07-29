@@ -46,34 +46,44 @@
 <template name="listUsersAdded">
     <div class="tbUsers">
         <h2 class="center">{{title}}</h2>
+        <table class="highlight responsive-table">
+            <thead>
+            <tr>
+                <th data-field="first">First_Name</th>
+                <th data-field="last">Last_Name</th>
+                <th data-field="pass">Password</th>
+                <th data-field="email">Email</th>
+                <th data-field="btns"></th>
+            </tr>
+            </thead>
+
+            <tbody>
             {{#each list}}
-                {{> formUser}}
+                {{#if editing}}
+                    <tr>
+                        <td><input type="text" id="editFirstName" value="{{firstNameUser}}"></td>
+                        <td><input type="text" id="editLastName" value="{{lastNameUser}}"></td>
+                        <td><input type="text" id="editPassword" value="{{passwordUser}}"></td>
+                        <td><input type="text" id="editEmail" value="{{emailUser}}"></td>
+                        <td>
+                            <button class="btn-floating waves-effect waves-light saveItem" onclick="toastEdit()" ><i class="material-icons">save</i></button>
+                            <button class="btn-floating waves-effect waves-light cancelItem"><i class="material-icons">cancel</i></button>
+                        </td>
+                    </tr>
+                {{else}}
+                    <tr>
+                        <td>{{firstNameUser}}</td>
+                        <td>{{lastNameUser}}</td>
+                        <td>{{passwordUser}}</td>
+                        <td>{{emailUser}}</td>
+                        <td>
+                            <button class="btn-floating waves-effect waves-light editItem" ><i class="material-icons">edit</i></button>
+                            <button class="btn-floating waves-effect waves-light deleteItem" onclick="toastDelete()" ><i class="material-icons">delete</i></button>
+                        </td>
+                    </tr>
+                {{/if}}
             {{/each}}
+            </tbody>
+        </table>
     </div>
-</template>
-
-<template name="formUser">
-    <form class="col s12">
-        <div class="row">
-            <div class="input-field col s2">
-                <input type="text" value="{{ firstNameUser }}">
-            </div>
-            <div class="input-field col s2">
-                <input type="text" value="{{ lastNameUser }}">
-            </div>
-            <div class="input-field col s2">
-                <input type="text" value="{{ passwordUser }}">
-            </div>
-            <div class="input-field col s2">
-                <input type="text" value="{{ emailUser }}">
-            </div>
-            <div class="">
-                <button class="btn-large waves-effect waves-light" ><i class="material-icons">edit</i>
-                </button>
-                <button class="btn-large waves-effect waves-light" ><i class="material-icons">delete</i>
-                </button>
-            </div>
-
-        </div>
-    </form>
 </template>
