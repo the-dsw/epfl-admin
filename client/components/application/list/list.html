@@ -46,30 +46,34 @@
 <template name="listUsersAdded">
     <div class="tbUsers">
         <h2 class="center">{{title}}</h2>
-
             {{#each list}}
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s2">
-                            <input type="text" value="{{ firstNameUser }}">
-                        </div>
-                        <div class="input-field col s2">
-                            <input type="text" value="{{ lastNameUser }}">
-                        </div>
-                        <div class="input-field col s2">
-                            <input type="text" value="{{ passwordUser }}">
-                        </div>
-                        <div class="input-field col s2">
-                            <input type="text" value="{{ emailUser }}">
-                        </div>
-                        <button class="btn-large waves-effect waves-light" ><i class="material-icons">edit</i>
-                        </button>
-                        <button class="btn-large waves-effect waves-light" ><i class="material-icons">delete</i>
-                        </button>
-                    </div>
-                </form>
+                {{> formUser}}
             {{/each}}
-
     </div>
 </template>
 
+<template name="formUser">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s2">
+                <input type="text" value="{{ firstNameUser }}">
+            </div>
+            <div class="input-field col s2">
+                <input type="text" value="{{ lastNameUser }}">
+            </div>
+            <div class="input-field col s2">
+                <input type="text" value="{{ passwordUser }}">
+            </div>
+            <div class="input-field col s2">
+                <input type="text" value="{{ emailUser }}">
+            </div>
+            <div class="">
+                <button class="btn-large waves-effect waves-light" ><i class="material-icons">edit</i>
+                </button>
+                <button class="btn-large waves-effect waves-light" ><i class="material-icons">delete</i>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</template>

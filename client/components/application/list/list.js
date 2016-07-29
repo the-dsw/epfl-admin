@@ -77,7 +77,7 @@ Meteor.subscribe('Lists');
             return Lists.find();
         },
         title: function() {
-            return "List Users Added";
+            return "List Users";
         }
     });
 
