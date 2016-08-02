@@ -147,6 +147,8 @@ function toast(err, id){
 // Message user edited successfully
 function toastEdit(){
     var $toastContent = $('<span>User edited successfully</span>');
+
+    console.log(JSON.stringify(Lists.find({}).fetch())); // delete after
     Materialize.toast($toastContent, 5000);
 }
 

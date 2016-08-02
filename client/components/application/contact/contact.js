@@ -23,25 +23,27 @@ Template.contact.events({
         }
 
         if(account === '' && email === '' && message === ''){
-
-        } else {
-            toast();
-            // asynchronously send an email
-            Meteor.call(
-                'sendEmail',
-                to,
-                email,
-                subject,
-                text
-            );
-
-            // Clear form
-            target.account.value = '';
-            target.email.value = '';
-            target.message.value = '';
-
-            return false;
+            alert("TODO: no submitting empty form");
+            return;
         }
+
+        toast();
+        // asynchronously send an email
+        Meteor.call(
+            'sendEmail',
+            to,
+            email,
+            subject,
+            text
+        );
+
+        // Clear form
+        target.account.value = '';
+        target.email.value = '';
+        target.message.value = '';
+
+        return false;
+
 
 
     }
