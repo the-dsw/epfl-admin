@@ -87,3 +87,33 @@
         </table>
     </div>
 </template>
+
+<template name="listUsers$toastInserted">
+    <span>
+    {{#if error}}
+Failed to add user
+    {{else}}
+    {{firstName}} {{lastName}} added successfully
+    {{/if}}
+    </span>
+</template>
+
+<template name="listUsers$toastEdited">
+    <span>
+        {{#if error}}
+            Failed to edit user
+        {{else}}
+            {{firstName}} {{lastName}} edited successfully
+        {{/if}}
+    </span>
+</template>
+
+<template name="listUsers$toastDeleted">
+    <span>
+        {{#if error}}
+            Failed to delete user
+        {{else}}
+            {{firstName}} {{lastName}} deleted successfully
+        {{/if}}
+    </span>
+</template>

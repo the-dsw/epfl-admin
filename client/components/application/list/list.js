@@ -25,45 +25,39 @@ Template.list.events({
         // Prevent default browser form submit
         e.preventDefault();
 
-        // Get value from form element
+            // Get value from form element
         const target = e.target;
         const first_name = target.firstName.value;
         const last_name = target.lastName.value;
         const password = target.password.value;
         const email = target.email.value;
 
-        // Message user added successfully
-        function toast(){
-            var $toastContent = $('<span>User added successfully</span>');
-            Materialize.toast($toastContent, 5000);
-        }
-
         if(first_name === '' && last_name === '' && password === '' && email === ''){
-
-        } else {
-            Lists.insert({
-                firstNameUser: target.firstName.value,
-                lastNameUser: target.lastName.value,
-                passwordUser: target.password.value,
-                emailUser: target.email.value,
-                createdAt: new Date(),
-                updatedAt: null
-            });
-
-            toast();
-
-            // Clear form
-            target.firstName.value = '';
-            target.lastName.value = '';
-            target.password.value = '';
-            target.email.value = '';
-
-            $('.user_form').hide();
-            $('.new_user').show();
-            $('.tbUsers').show();
-
-            return false;
+            alert("TODO: no submitting empty form");
+            return;
         }
+
+        Lists.insert({
+            firstNameUser: target.firstName.value,
+            lastNameUser: target.lastName.value,
+            passwordUser: target.password.value,
+            emailUser: target.email.value,
+            createdAt: new Date(),
+            updatedAt: null
+        }, toast);
+
+
+        // Clear form
+        target.firstName.value = '';
+        target.lastName.value = '';
+        target.password.value = '';
+        target.email.value = '';
+
+        $('.user_form').hide();
+        $('.new_user').show();
+        $('.tbUsers').show();
+
+        return false;
     }
 });
 
@@ -87,16 +81,9 @@ Template.listUsersAdded.helpers({
 
 Template.listUsersAdded.events({
     'click .deleteItem': function() {
-        // Message user deleted successfully
-        function toastDelete(){
-            var $toastContent = $('<span>User deleted successfully</span>');
-            Materialize.toast($toastContent, 5000);
-        }
         // delete user from list
         Lists.remove(this._id);
-
         toastDelete();
-
         return false;
     },
     'click .editItem': function() {
@@ -129,7 +116,7 @@ Template.listUsersAdded.events({
 
 // ========= Functions =======================================
 
-var saveItem = function(){
+function saveItem(){
     var editItem = {
         firstNameUser: $("#editFirstName").val(),
         lastNameUser: $("#editLastName").val(),
@@ -142,9 +129,32 @@ var saveItem = function(){
     Session.set('editItemId', null);
 }
 
+// Message user added successfully or failed
+function toast(err, id){
+    var toastTemplateArgs;
+    if (err) {
+        toastTemplateArgs = {error: err};
+    } else {
+        var newUser = Lists.find({_id: id}).fetch();
+        toastTemplateArgs = {
+            firstName: newUser[0].firstNameUser,
+            lastName: newUser[0].lastNameUser
+        };
+    }
+    var $toastContent = Blaze.toHTMLWithData(Template.listUsers$toastInserted, toastTemplateArgs);
+    Materialize.toast($toastContent, 5000);
+}
+
+
 // Message user edited successfully
 function toastEdit(){
     var $toastContent = $('<span>User edited successfully</span>');
+    Materialize.toast($toastContent, 5000);
+}
+
+// Message user deleted successfully
+function toastDelete(){
+    var $toastContent = $('<span>User deleted successfully</span>');
     Materialize.toast($toastContent, 5000);
 }
 
