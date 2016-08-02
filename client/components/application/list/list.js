@@ -12,7 +12,6 @@ Template.listUsersAdded.rendered = function() {
 }
 
 Template.list.events({
-
     'click .new_user': function() {
         $('.user_form').toggle();
         $('.new_user').hide();
@@ -89,7 +88,6 @@ Template.listUsersAdded.events({
     'click .editItem': function() {
 
         Session.set('editItemId', this._id);
-
         return false;
 
     },
