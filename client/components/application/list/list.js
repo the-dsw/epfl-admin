@@ -26,29 +26,17 @@ Template.list.events({
 
             // Get value from form element
         const target = e.target;
-        const first_name = target.firstName.value;
-        const last_name = target.lastName.value;
+        const firstName = target.firstName.value;
+        const lastName = target.lastName.value;
         const password = target.password.value;
         const email = target.email.value;
 
-        if(first_name === '' && last_name === '' && password === '' && email === ''){
+        if(firstName === '' && lastName === '' && password === '' && email === ''){
             alert("TODO: no submitting empty form");
             return;
         }
 
-        function toast(err, id){
-            var toastTemplateArgs;
-            if (err) {
-                toastTemplateArgs = {error: err};
-            } else {
-                toastTemplateArgs = {
-                    firstName: first_name,
-                    lastName: last_name
-                };
-            }
-            var $toastContent = Blaze.toHTMLWithData(Template.listUsers$toastInserted, toastTemplateArgs);
-            Materialize.toast($toastContent, 5000);
-        }
+
 
         Lists.insert({
             firstNameUser: target.firstName.value,
@@ -57,7 +45,9 @@ Template.list.events({
             emailUser: target.email.value,
             createdAt: new Date(),
             updatedAt: null
-        }, toast);
+        }, function (err){
+            toast(firstName, lastName, Template.listUsers$toastInserted, err);
+        });
 
 
         // Clear form
@@ -139,29 +129,13 @@ function saveItem(){
         updatedAt: new Date()
     }
 
-    function toast(err) {
-        var toastTemplateArgs;
-        if (err) {
-            toastTemplateArgs = {error: err};
-        } else {
-            toastTemplateArgs = {
-                firstName: firstName,
-                lastName: lasttName
-            };
-        }
-        var $toastContent = Blaze.toHTMLWithData(Template.listUsers$toastEdited, toastTemplateArgs);
-        Materialize.toast($toastContent, 5000);
-    }
-
-    Lists.update(Session.get('editItemId'), {$set: editItem}, {}, toast);
+    Lists.update(Session.get('editItemId'), {$set: editItem}, {}, function (err) {
+        toast(firstName, lasttName, Template.listUsers$toastEdited, err);
+    });
     Session.set('editItemId', null);
 }
 
-// Message user added successfully or failed
 
-
-
-//
 function saveEdit(err){
     var $toastContent = $('<span>User edited successfully</span>');
 
@@ -175,4 +149,17 @@ function toastDelete(){
     Materialize.toast($toastContent, 5000);
 }
 
+function toast(firstName, lastName, template, err){
+    var toastTemplateArgs;
+    if (err) {
+        toastTemplateArgs = {error: err};
+    } else {
+        toastTemplateArgs = {
+            firstName: firstName,
+            lastName: lastName
+        };
+    }
+    var $toastContent = Blaze.toHTMLWithData(template, toastTemplateArgs);
+    Materialize.toast($toastContent, 5000);
+}
 
