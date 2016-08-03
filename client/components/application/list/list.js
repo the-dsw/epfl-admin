@@ -8,7 +8,7 @@ Template.list.rendered = function() {
 }
 
 Template.listUsersAdded.rendered = function() {
-    $('.tbUsers').hide();
+    $('.tbUsers').show();
 }
 
 Template.list.events({
@@ -34,6 +34,20 @@ Template.list.events({
         if(first_name === '' && last_name === '' && password === '' && email === ''){
             alert("TODO: no submitting empty form");
             return;
+        }
+
+        function toast(err, id){
+            var toastTemplateArgs;
+            if (err) {
+                toastTemplateArgs = {error: err};
+            } else {
+                toastTemplateArgs = {
+                    firstName: first_name,
+                    lastName: last_name
+                };
+            }
+            var $toastContent = Blaze.toHTMLWithData(Template.listUsers$toastInserted, toastTemplateArgs);
+            Materialize.toast($toastContent, 5000);
         }
 
         Lists.insert({
@@ -68,7 +82,7 @@ Template.list.helpers({
 
 Template.listUsersAdded.helpers({
     list: function () {
-        return Lists.find();
+        return Lists.find().fetch();
     },
     title: function() {
         return "List Users";
@@ -97,7 +111,7 @@ Template.listUsersAdded.events({
     },
     'click .saveItem': function(){
         saveItem();
-        toastEdit();
+
 
         return false;
     },
@@ -105,7 +119,7 @@ Template.listUsersAdded.events({
         // When a user presses enter let’s save the changes
         if (e.keyCode === 13) {
             saveItem();
-            toastEdit();
+
         }
     }
 
@@ -115,37 +129,40 @@ Template.listUsersAdded.events({
 // ========= Functions =======================================
 
 function saveItem(){
+    var firstName = $("#editFirstName").val();
+    var lasttName = $("#editLastName").val();
     var editItem = {
-        firstNameUser: $("#editFirstName").val(),
-        lastNameUser: $("#editLastName").val(),
+        firstNameUser: firstName,
+        lastNameUser: lasttName,
         passwordUser: $("#editPassword").val(),
         emailUser: $("#editEmail").val(),
         updatedAt: new Date()
     }
 
-    Lists.update(Session.get('editItemId'), {$set: editItem});
+    function toast(err) {
+        var toastTemplateArgs;
+        if (err) {
+            toastTemplateArgs = {error: err};
+        } else {
+            toastTemplateArgs = {
+                firstName: firstName,
+                lastName: lasttName
+            };
+        }
+        var $toastContent = Blaze.toHTMLWithData(Template.listUsers$toastEdited, toastTemplateArgs);
+        Materialize.toast($toastContent, 5000);
+    }
+
+    Lists.update(Session.get('editItemId'), {$set: editItem}, {}, toast);
     Session.set('editItemId', null);
 }
 
 // Message user added successfully or failed
-function toast(err, id){
-    var toastTemplateArgs;
-    if (err) {
-        toastTemplateArgs = {error: err};
-    } else {
-        var newUser = Lists.find({_id: id}).fetch();
-        toastTemplateArgs = {
-            firstName: newUser[0].firstNameUser,
-            lastName: newUser[0].lastNameUser
-        };
-    }
-    var $toastContent = Blaze.toHTMLWithData(Template.listUsers$toastInserted, toastTemplateArgs);
-    Materialize.toast($toastContent, 5000);
-}
 
 
-// Message user edited successfully
-function toastEdit(){
+
+//
+function saveEdit(err){
     var $toastContent = $('<span>User edited successfully</span>');
 
     console.log(JSON.stringify(Lists.find({}).fetch())); // delete after
