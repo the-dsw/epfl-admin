@@ -100,7 +100,7 @@ Template.listUsersAdded.events({
         return false;
     },
     'click .saveItem': function(){
-        saveItem();
+        saveEdit();
 
 
         return false;
@@ -108,7 +108,7 @@ Template.listUsersAdded.events({
     'keypress input': function(e) {
         // When a user presses enter let’s save the changes
         if (e.keyCode === 13) {
-            saveItem();
+            saveEdit();
 
         }
     }
@@ -118,7 +118,7 @@ Template.listUsersAdded.events({
 
 // ========= Functions =======================================
 
-function saveItem(){
+function saveEdit(){
     var firstName = $("#editFirstName").val();
     var lasttName = $("#editLastName").val();
     var editItem = {
@@ -129,19 +129,11 @@ function saveItem(){
         updatedAt: new Date()
     }
 
-    Lists.update(Session.get('editItemId'), {$set: editItem}, {}, function (err) {
-        toast(firstName, lasttName, Template.listUsers$toastEdited, err);
-    });
+    Lists.update(Session.get('editItemId'), {$set: editItem}, {},
+        _.bind(toast, {}, firstName, lasttName, Template.listUsers$toastEdited)); // Bind a function to an object, meaning that whenever the function is called, the value of this will be the object.
     Session.set('editItemId', null);
 }
 
-
-function saveEdit(err){
-    var $toastContent = $('<span>User edited successfully</span>');
-
-    console.log(JSON.stringify(Lists.find({}).fetch())); // delete after
-    Materialize.toast($toastContent, 5000);
-}
 
 // Message user deleted successfully
 function toastDelete(){

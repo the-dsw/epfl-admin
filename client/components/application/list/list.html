@@ -91,9 +91,9 @@
 <template name="listUsers$toastInserted">
     <span>
     {{#if error}}
-Failed to add user
+        {{> errorIcon}}Failed to add user
     {{else}}
-    {{firstName}} {{lastName}} added successfully
+        {{> doneIcon}} {{firstName}} {{lastName}} added successfully
     {{/if}}
     </span>
 </template>
@@ -101,9 +101,9 @@ Failed to add user
 <template name="listUsers$toastEdited">
     <span>
         {{#if error}}
-            Failed to edit user
+            {{> errorIcon}}Failed to edit user
         {{else}}
-            {{firstName}} {{lastName}} edited successfully
+            {{> doneIcon}} {{firstName}} {{lastName}} edited successfully
         {{/if}}
     </span>
 </template>
@@ -111,9 +111,17 @@ Failed to add user
 <template name="listUsers$toastDeleted">
     <span>
         {{#if error}}
-            Failed to delete user
+            {{> errorIcon}}Failed to delete user
         {{else}}
-            {{firstName}} {{lastName}} deleted successfully
+            {{> doneIcon}} {{firstName}} {{lastName}} deleted successfully
         {{/if}}
     </span>
+</template>
+
+<template name="errorIcon">
+    <i class="material-icons left materialize-red-text text-lighten-1">&#xE001;</i>
+</template>
+
+<template name="doneIcon">
+    <i class="material-icons left light-green-text text-darken-2">&#xE876;</i>
 </template>
