@@ -7,11 +7,13 @@ Meteor.publish('Lists', function(){
 
 Meteor.startup(() => {
   // code to run on server at startup
-    if (Meteor.settings.sendEmails.url) {
-        process.env.MAIL_URL = Meteor.settings.sendEmails.url;
+    if (Meteor.settings && Meteor.settings.sendEmails) {
+	if (Meteor.settings.sendEmails.url) {
+            process.env.MAIL_URL = Meteor.settings.sendEmails.url;
 
-    } else {
-        process.env.MAIL_URL = "smtp://" + Meteor.settings.sendEmails.login + ":" + Meteor.settings.sendEmails.password + "@smtp1.epfl.ch:587";
+	} else {
+            process.env.MAIL_URL = "smtp://" + Meteor.settings.sendEmails.login + ":" + Meteor.settings.sendEmails.password + "@smtp1.epfl.ch:587";
+	}
 
     }
 
