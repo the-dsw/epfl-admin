@@ -1,0 +1,18 @@
+version: '2'
+services:
+  meteor:
+    container_name: cmiadmin
+    image: epflsti/cmiadmin
+    build: .
+    ports:
+        - "3000:80"
+    links:
+        - mongodb
+    environment:
+        - MONGO_URL=mongodb://mongodb
+        - ROOT_URL=http://localhost:3000
+  mongodb:
+    container_name: mongodb
+    build: docker_mongodb
+    image: epflsti/mongodb
+ 

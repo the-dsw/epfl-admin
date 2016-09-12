@@ -7,7 +7,15 @@ Meteor.publish('Lists', function(){
 
 Meteor.startup(() => {
   // code to run on server at startup
-    process.env.MAIL_URL = "smtp://<your-email>:<your-password>@smtp.gmail.com:587";
+    if (Meteor.settings && Meteor.settings.sendEmails) {
+	if (Meteor.settings.sendEmails.url) {
+            process.env.MAIL_URL = Meteor.settings.sendEmails.url;
+
+	} else {
+            process.env.MAIL_URL = "smtp://" + Meteor.settings.sendEmails.login + ":" + Meteor.settings.sendEmails.password + "@smtp1.epfl.ch:587";
+	}
+
+    }
 
 });
 

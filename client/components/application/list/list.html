@@ -66,7 +66,7 @@
                         <td><input type="text" id="editPassword" value="{{passwordUser}}"></td>
                         <td><input type="text" id="editEmail" value="{{emailUser}}"></td>
                         <td>
-                            <button class="btn-floating waves-effect waves-light saveItem" onclick="toastEdit()" ><i class="material-icons">save</i></button>
+                            <button class="btn-floating waves-effect waves-light saveItem" onclick="saveEdit()" ><i class="material-icons">save</i></button>
                             <button class="btn-floating waves-effect waves-light cancelItem"><i class="material-icons">cancel</i></button>
                         </td>
                     </tr>
@@ -86,4 +86,42 @@
             </tbody>
         </table>
     </div>
+</template>
+
+<template name="listUsers$toastInserted">
+    <span>
+    {{#if error}}
+        {{> errorIcon}}Failed to add user
+    {{else}}
+        {{> doneIcon}} {{firstName}} {{lastName}} added successfully
+    {{/if}}
+    </span>
+</template>
+
+<template name="listUsers$toastEdited">
+    <span>
+        {{#if error}}
+            {{> errorIcon}}Failed to edit user
+        {{else}}
+            {{> doneIcon}} {{firstName}} {{lastName}} edited successfully
+        {{/if}}
+    </span>
+</template>
+
+<template name="listUsers$toastDeleted">
+    <span>
+        {{#if error}}
+            {{> errorIcon}}Failed to delete user
+        {{else}}
+            {{> doneIcon}} {{firstName}} {{lastName}} deleted successfully
+        {{/if}}
+    </span>
+</template>
+
+<template name="errorIcon">
+    <i class="material-icons left materialize-red-text text-lighten-1">&#xE001;</i>
+</template>
+
+<template name="doneIcon">
+    <i class="material-icons left light-green-text text-darken-2">&#xE876;</i>
 </template>
