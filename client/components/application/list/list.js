@@ -148,4 +148,3 @@ function toastEdit(){
     Materialize.toast($toastContent, 5000);
 }
 
-
